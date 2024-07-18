@@ -7,6 +7,7 @@ trigger:
 - master
 
 variables:
+  imageRepository: 'cloudsample'
   tag: '$(Build.BuildId)'
 
 pool:
