@@ -1,0 +1,101 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.1'
+	id 'io.spring.dependency-management' version '1.1.5'
+	id 'net.linguica.maven-settings' version '0.5'
+	id 'maven-publish'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+/*tasks.bootBuildImage {
+    docker {
+        host = "//./pipe/dockerDesktopLinuxEngine"
+    }
+}*/
+
+
+publishing { 
+/*
+    publications { 
+        myPublication(MavenPublication) { 
+            groupId '<GROUP_ID>' 
+            artifactId '<ARTIFACT_ID>' 
+            version '<VERSION_NUMBER>'           
+            artifact '<PATH_TO_YOUR_JAR_FILE>'   
+        } 
+    } 
+*/
+    // Repositories to publish artifacts 
+/*    repositories { 
+        maven {
+      	    url 'https://pkgs.dev.azure.com/ktds-playground/_packaging/ktds-playground/maven/v1'
+		    name 'ktds-playground'
+	        credentials {
+	            username "ktds-playground"
+	            password "agohvuxra5coh2xc4sbegyv7gxzn4bhiwm33aczomrid7wr4s4oa"
+	        }
+		    authentication {
+		        basic(BasicAuthentication)
+		    }
+        }
+    }*/
+    repositories { 
+		maven {
+		    url 'https://pkgs.dev.azure.com/ktds-playground/cloud-guide/_packaging/cloud-sample-feed/maven/v1'
+		    name 'cloud-sample-feed'
+		    authentication {
+		        basic(BasicAuthentication)
+		    }
+		}
+    }
+    
+    
+} 
+
+
+repositories {
+	/*mavenCentral()*/
+/*	maven {
+	    url 'https://pkgs.dev.azure.com/ktds-playground/_packaging/ktds-playground/maven/v1'
+	    name 'ktds-playground'
+        credentials {
+            username "ktds-playground"
+            password "agohvuxra5coh2xc4sbegyv7gxzn4bhiwm33aczomrid7wr4s4oa"
+        }
+	    authentication {
+	        basic(BasicAuthentication)
+	    }
+	}*/
+	
+	maven {
+	    url 'https://pkgs.dev.azure.com/ktds-playground/cloud-guide/_packaging/cloud-sample-feed/maven/v1'
+	    name 'cloud-sample-feed'
+	    authentication {
+	        basic(BasicAuthentication)
+	    }
+	}
+	
+}
+
+bootBuildImage {
+    imageName = "tiuaxcoeacr.azurecr.io/cloudsample"
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
