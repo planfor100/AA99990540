@@ -6,6 +6,9 @@
 trigger:
 - master
 
+variables:
+  tag: '$(Build.BuildId)'
+
 pool:
   vmImage: ubuntu-latest
 
@@ -21,3 +24,11 @@ steps:
     jdkVersionOption: '1.17'
     sonarQubeRunAnalysis: false
     spotBugsAnalysis: false
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'cepgappacr'
+    repository: $(imageRepository)
+    command: 'push'
+    tags: |
+      $(tag)
