@@ -11,6 +11,8 @@ pool:
 
 steps:
 - task: Gradle@2
+  env:
+    SYSTEM_ACCESSTOKEN: $(System.AccessToken)
   inputs:
     gradleWrapperFile: 'gradlew'
     tasks: 'bootBuildImage'
