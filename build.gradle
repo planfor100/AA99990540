@@ -25,11 +25,11 @@ java {
 publishing { 
     repositories { 
 		maven {
-		    url 'https://pkgs.dev.azure.com/ktds-playground/cloud-guide/_packaging/cloud-sample-feed/maven/v1'
-		    name 'cloud-sample-feed'
-		    authentication {
-		        basic(BasicAuthentication)
-		    }
+			url 'https://pkgs.dev.azure.com/ktds-playground/_packaging/ktds-playground/maven/v1'
+			name 'ktds-playground'
+			authentication {
+				basic(BasicAuthentication)
+			}
 		}
     }   
 } 
@@ -39,11 +39,11 @@ repositories {
 	/*mavenCentral()*/
 	
 	maven {
-	    url 'https://pkgs.dev.azure.com/ktds-playground/cloud-guide/_packaging/cloud-sample-feed/maven/v1'
-	    name 'cloud-sample-feed'
-	    authentication {
-	        basic(BasicAuthentication)
-	    }
+		url 'https://pkgs.dev.azure.com/ktds-playground/_packaging/ktds-playground/maven/v1'
+		name 'ktds-playground'
+		authentication {
+			basic(BasicAuthentication)
+		}
 	}
 	
 }
