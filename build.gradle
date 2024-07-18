@@ -23,30 +23,6 @@ java {
 
 
 publishing { 
-/*
-    publications { 
-        myPublication(MavenPublication) { 
-            groupId '<GROUP_ID>' 
-            artifactId '<ARTIFACT_ID>' 
-            version '<VERSION_NUMBER>'           
-            artifact '<PATH_TO_YOUR_JAR_FILE>'   
-        } 
-    } 
-*/
-    // Repositories to publish artifacts 
-/*    repositories { 
-        maven {
-      	    url 'https://pkgs.dev.azure.com/ktds-playground/_packaging/ktds-playground/maven/v1'
-		    name 'ktds-playground'
-	        credentials {
-	            username "ktds-playground"
-	            password "agohvuxra5coh2xc4sbegyv7gxzn4bhiwm33aczomrid7wr4s4oa"
-	        }
-		    authentication {
-		        basic(BasicAuthentication)
-		    }
-        }
-    }*/
     repositories { 
 		maven {
 		    url 'https://pkgs.dev.azure.com/ktds-playground/cloud-guide/_packaging/cloud-sample-feed/maven/v1'
@@ -55,25 +31,12 @@ publishing {
 		        basic(BasicAuthentication)
 		    }
 		}
-    }
-    
-    
+    }   
 } 
 
 
 repositories {
 	/*mavenCentral()*/
-/*	maven {
-	    url 'https://pkgs.dev.azure.com/ktds-playground/_packaging/ktds-playground/maven/v1'
-	    name 'ktds-playground'
-        credentials {
-            username "ktds-playground"
-            password "agohvuxra5coh2xc4sbegyv7gxzn4bhiwm33aczomrid7wr4s4oa"
-        }
-	    authentication {
-	        basic(BasicAuthentication)
-	    }
-	}*/
 	
 	maven {
 	    url 'https://pkgs.dev.azure.com/ktds-playground/cloud-guide/_packaging/cloud-sample-feed/maven/v1'
