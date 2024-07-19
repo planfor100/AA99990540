@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: cloudsample 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudsample
+  template:
+    metadata:
+      labels:
+        app: cloudsample 
+    spec:
+      containers:
+        - name: cloudsample 
+          image: tiuaxcoeacr.azurecr.io/cloudsample
+          ports:
+          - containerPort: 8080
