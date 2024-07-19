@@ -1,23 +1,43 @@
-# Gradle
-# Build your Java project and run tests with Gradle using a Gradle wrapper script.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+# Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- master
+  - mskim-cicd
 
-pool:
-  vmImage: ubuntu-latest
+resources:
+  - repo: self
 
-steps:
-- task: Gradle@2
-  env:
-    SYSTEM_ACCESSTOKEN: $(System.AccessToken)
-  inputs:
-    gradleWrapperFile: 'gradlew'
-    tasks: 'bootBuildImage'
-    publishJUnitResults: false
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.17'
-    sonarQubeRunAnalysis: false
-    spotBugsAnalysis: false
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: '31545f27-9873-4b4d-bb1e-a6fa6245aded'
+  imageRepository: 'samplemskim'
+  containerRegistry: 'cepgstapacr.azurecr.io'
+  dockerfilePath: '**/Dockerfile'
+  tag: '$(Build.BuildId)'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+stages:
+  - stage: Build
+    displayName: Build and push stage
+    jobs:
+      - job: Build
+        displayName: Build
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - script: gradlew build
+            displayName: Gradle build
+          - script: docker cp build/lib/*.jar ${BASE_IMAGE}:/app/app.jar
+            displayName: BaseImage 에 복사
+          - task: Docker@2
+            displayName: Build and push an image to container registry
+            inputs:
+              command: buildAndPush
+              repository: $(imageRepository)
+              dockerfile: $(dockerfilePath)
+              containerRegistry: $(dockerRegistryServiceConnection)
+              tags: |
+                $(tag)

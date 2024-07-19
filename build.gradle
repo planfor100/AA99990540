@@ -39,10 +39,10 @@ repositories {
 	maven {
 		url 'https://pkgs.dev.azure.com/ktds-playground/ce-pg-study/_packaging/ce-pg-stude-peed/maven/v1'
 		name 'ce-pg-stude-peed'
-		credentials {
-			username "ktds-playground"
-			password "$System.env.SYSTEM_ACCESSTOKEN"
-		}
+//		credentials {
+//			username "ktds-playground"
+//			password "$System.env.SYSTEM_ACCESSTOKEN"
+//		}
 		authentication {
 			basic(BasicAuthentication)
 		}
@@ -51,7 +51,7 @@ repositories {
 }
 
 bootBuildImage {
-    imageName = "tiuaxcoeacr.azurecr.io/cloudsample"
+    imageName = "cepgbaseacr/docker.io/openjdk:17"
 }
 
 dependencies {
