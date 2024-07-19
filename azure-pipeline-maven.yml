@@ -1,0 +1,25 @@
+trigger:
+- develop
+
+variables:
+  imageRepository: 'cloudsample'
+  tag: '$(Build.BuildId)'
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: MavenAuthenticate@0
+  inputs:
+    artifactsFeeds: 'ce-pg-stude-peed'
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'build-image'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
