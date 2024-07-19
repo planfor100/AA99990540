@@ -29,7 +29,7 @@ steps:
 
 - task: Docker@2
   inputs:
-    containerRegistry: 'cepgStApAcr'
+    containerRegistry: 'cepgstapacr'
     repository: $(imageRepository)
     command: 'push'
     tags: |
