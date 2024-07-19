@@ -28,7 +28,7 @@ stages:
         pool:
           vmImage: $(vmImageName)
         steps:
-          - script: gradlew build
+          - script: ./gradlew build
             displayName: Gradle build
           - script: docker cp build/lib/*.jar ${BASE_IMAGE}:/app/app.jar
             displayName: BaseImage 에 복사
