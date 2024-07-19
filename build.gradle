@@ -51,7 +51,7 @@ repositories {
 }
 
 bootBuildImage {
-    imageName = "cepgappacr.azurecr.io/cloudsample"
+    imageName = "cepgstapacr.azurecr.io/cloudsample"
 }
 
 dependencies {
