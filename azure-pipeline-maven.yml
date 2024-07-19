@@ -22,5 +22,6 @@ steps:
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
     mavenAuthenticateFeed: false
+    jdkVersionOption: 1.17
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
