@@ -1,6 +1,12 @@
 trigger:
 - none
 
+variables:
+  imageRepository: 'cloudsample'
+  containerRegistry: 'cepgstapacr.azurecr.io'
+  #tag: '$(Build.BuildId)'
+  tag: latest
+
 pool:
   vmImage: ubuntu-latest
 
