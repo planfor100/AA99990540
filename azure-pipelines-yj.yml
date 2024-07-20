@@ -10,6 +10,9 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- script: |
+    ./gradlew clean
+  displayName: 'Gradle Clean'
 - task: Gradle@2
   inputs:
     workingDirectory: ''
