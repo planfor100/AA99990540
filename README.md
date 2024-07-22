@@ -14,8 +14,8 @@
 - Azure devops pipeline을 사용하여 Deploy(ACR, AKS) 실습합니다.
 
 ## 샘플 Pipeline
-- CI: [TODO: maven](TODO: 경로 참조), [TODO: gradle](TODO: 경로 참조)
-- CD: [TODO](TODO)
+- CI: [Maven pipeline](https://dev.azure.com/ktds-playground/ce-pg-study/_git/cloud-sample?path=/azure-pipeline-ci-maven.yml&version=GBdevelop), [Gradle pipline](https://dev.azure.com/ktds-playground/ce-pg-study/_git/cloud-sample?path=%2Fazure-pipeline-ci-gradle.yml&version=GBdevelop)
+- [CD](https://dev.azure.com/ktds-playground/ce-pg-study/_git/cloud-sample?path=/azure-pipeline-cd.yml&version=GBdevelop)
 
 ## 기능 목록
 - TODO List 목록 조회, 삭제, 수정.
