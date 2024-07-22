@@ -26,6 +26,12 @@ steps:
     sonarQubeRunAnalysis: false
     spotBugsAnalysis: false
 
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
 - task: Docker@2
   inputs:
     containerRegistry: 'cepgstapacr'
