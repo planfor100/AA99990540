@@ -8,6 +8,7 @@ trigger:
 
 variables:
   imageRepository: 'cloudsample'
+  buildVersion: '1.0.0-$(Date:yyyyMMdd).$(Rev:.r)'
   tag: '$(Build.BuildId)'
 
 pool:
@@ -22,7 +23,7 @@ steps:
     script: |
       git config --global user.name "BuildService"
       git config --global user.email "buildservice@pipeline.com"
-      git tag -a v0.0.1-dev -m "Development Release"
+      git tag -a $(buildVersion) -m "Development Release"
       git push --tags
 - task: MavenAuthenticate@0
   inputs:
