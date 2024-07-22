@@ -29,7 +29,6 @@ steps:
     sonarQubeRunAnalysis: false
     spotBugsAnalysis: false
 
-- 
 - task: Docker@2
   inputs:
     command: 'build'
