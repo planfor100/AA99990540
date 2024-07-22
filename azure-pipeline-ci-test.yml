@@ -29,6 +29,12 @@ steps:
     sonarQubeRunAnalysis: false
     spotBugsAnalysis: false
 
+- 
+- task: Docker@2
+  inputs:
+    command: 'build'
+    Dockerfile: '**/Dockerfile'
+
 - task: CopyFiles@2
   displayName: 'Copy scripts'
   inputs:
