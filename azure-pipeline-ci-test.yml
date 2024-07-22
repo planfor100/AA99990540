@@ -21,8 +21,11 @@ steps:
     targetType: 'inline'
     script: |
       git config --global user.name "BuildService"
+      echo '1'
       git config --global user.email "buildservice@pipeline.com"
+      echo '2'
       git tag -a v0.0.1-dev -m "Development Release"
+      echo '3'
       git push --tags
 - task: MavenAuthenticate@0
   inputs:
