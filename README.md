@@ -15,6 +15,7 @@
 - Kubernates ConfigMap을 사용하여 환경에 따른 Application yml적용을 실습합니다.
 - Azure devops pipeline을 사용하여 Build(gradle, maven) 실습합니다.
 - Azure devops pipeline을 사용하여 Deploy(ACR, AKS) 실습합니다.
+- AKS에서 DB 접속 실습합니다.
 
 ## 샘플 Pipeline
 - CI: [Maven pipeline](https://dev.azure.com/ktds-playground/ce-pg-study/_git/cloud-sample?path=/azure-pipeline-ci-maven.yml&version=GBdevelop), [Gradle pipline](https://dev.azure.com/ktds-playground/ce-pg-study/_git/cloud-sample?path=%2Fazure-pipeline-ci-gradle.yml&version=GBdevelop)
