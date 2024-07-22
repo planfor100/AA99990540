@@ -15,11 +15,14 @@ java {
 	}
 }
 
-/*tasks.bootBuildImage {
+/* local test */
+/*
+tasks.bootBuildImage {
     docker {
         host = "//./pipe/dockerDesktopLinuxEngine"
     }
-}*/
+}
+*/
 
 publishing { 
     repositories { 
@@ -35,14 +38,10 @@ publishing {
 
 repositories {
 	/* mavenCentral() */
-
+    
 	maven {
 		url 'https://pkgs.dev.azure.com/ktds-playground/ce-pg-study/_packaging/ce-pg-stude-peed/maven/v1'
 		name 'ce-pg-stude-peed'
-		credentials {
-			username "ktds-playground"
-			password "$System.env.SYSTEM_ACCESSTOKEN"
-		}
 		authentication {
 			basic(BasicAuthentication)
 		}
@@ -55,8 +54,16 @@ bootBuildImage {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.postgresql:postgresql:42.3.3'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+	runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

@@ -1,20 +1,43 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Cloud-Sample
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+## 프로젝트 설명
+샘플 프로젝트를 사용하여 CI/CD pipeline을 사용하여 Application 배포하는 법을 학습합니다.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+## 설치 방법
+프로젝트를 fork하여 사용자별 repo에서 작업합니다.
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+[포크만들기](https://learn.microsoft.com/ko-kr/azure/devops/repos/git/forks?view=azure-devops&tabs=visual-studio#create-a-fork)를 참조합니다.
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+## 학습 내용
+- Kubernates ConfigMap을 사용하여 환경에 따른 Application yml적용을 실습합니다.
+- Azure devops pipeline을 사용하여 Build(gradle, maven) 실습합니다.
+- Azure devops pipeline을 사용하여 Deploy(ACR, AKS) 실습합니다.
+
+## 샘플 Pipeline
+- CI: [Maven pipeline](https://dev.azure.com/ktds-playground/ce-pg-study/_git/cloud-sample?path=/azure-pipeline-ci-maven.yml&version=GBdevelop), [Gradle pipline](https://dev.azure.com/ktds-playground/ce-pg-study/_git/cloud-sample?path=%2Fazure-pipeline-ci-gradle.yml&version=GBdevelop)
+- [CD](https://dev.azure.com/ktds-playground/ce-pg-study/_git/cloud-sample?path=/azure-pipeline-cd.yml&version=GBdevelop)
+
+## 기능 목록
+- TODO List 목록 조회, 삭제, 수정.
+- JPA를 사용하여 스키마 및 샘플 데이터 생성.
+- 로컬용 h2 mem db 샘플.
+- 개발용 postgresql 접속 템플릿.
+
+## Application 동작 방법
+- 웹브라우저에서 서버 또는 로컬 8080 포트로 접속
+~~~
+http://[hostname]:8080
+~~~
+
+## 예제 코드
+~~~yaml
+  datasource:
+    # jdbc driver
+    driver-class-name: org.postgresql.Driver
+    # url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://[hostname]:[port]/[database]
+    # 사용자명
+    username: sa
+    # 비밀번호
+    password: 1234
+~~~
