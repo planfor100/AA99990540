@@ -22,7 +22,7 @@ steps:
     SYSTEM_ACCESSTOKEN: $(System.AccessToken)
   inputs:
     gradleWrapperFile: 'gradlew'
-    tasks: 'bootBuildImage'
+    tasks: 'build'
     publishJUnitResults: false
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.17'
@@ -35,10 +35,10 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
-- task: Docker@2
-  inputs:
-    containerRegistry: 'cepgstapacr'
-    repository: $(imageRepository)
-    command: 'push'
-    tags: |
-      $(tag)
+#- task: Docker@2
+#  inputs:
+#    containerRegistry: 'cepgstapacr'
+#    repository: $(imageRepository)
+#    command: 'push'
+#    tags: |
+#      $(tag)
