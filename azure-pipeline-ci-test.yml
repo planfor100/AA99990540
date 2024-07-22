@@ -5,10 +5,11 @@
 
 trigger:
 - none
+name: $(Date:yyyyMMdd).$(Rev:.r)
 
 variables:
   imageRepository: 'cloudsample'
-  buildVersion: '1.0.0-$(Date:yyyyMMdd).$(Rev:.r)'
+  buildVersion: '1.0.0-$(Build.BuildNumber)'
   tag: '$(Build.BuildId)'
 
 pool:
