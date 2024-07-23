@@ -66,7 +66,7 @@ steps:
   inputs:
     containerregistrytype: 'Azure Container Registry'
     command: 'Tag image'
-    imageName: '$(Build.Repository.Name):$(Build.BuildId)'
+    imageName: '$(imageRepository):$(appVersion).$(buildVersion) cepgstapacr.azurecr.io/$(imageRepository):$(appVersion).$(buildVersion)'
 
 - task: Docker@2
   inputs:
