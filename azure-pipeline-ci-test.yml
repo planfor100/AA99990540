@@ -62,15 +62,15 @@ steps:
     Dockerfile: '**/Dockerfile'
     tags: |
       $(appVersion).$(buildVersion)
-- task: Docker@1
-  inputs:
-    containerregistrytype: 'Azure Container Registry'
-    azureSubscriptionEndpoint: 'ce-pg-study-sc'
-    azureContainerRegistry: 'cepgstapacr.azurecr.io'
-    command: 'Tag image'
-    imageNamesPath: 'cepgbaseacr.azurecr.io'
-    imageName: '$(imageRepository):$(appVersion).$(buildVersion)'
-    qualifyImageName: false
+#- task: Docker@1
+#  inputs:
+#    containerregistrytype: 'Azure Container Registry'
+#    azureSubscriptionEndpoint: 'ce-pg-study-sc'
+#    azureContainerRegistry: 'cepgstapacr.azurecr.io'
+#    command: 'Tag image'
+#    imageNamesPath: 'cepgbaseacr.azurecr.io'
+#    imageName: '$(imageRepository):$(appVersion).$(buildVersion)'
+#    qualifyImageName: false
 
 - task: Docker@2
   inputs:
