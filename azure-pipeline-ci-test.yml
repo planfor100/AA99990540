@@ -25,12 +25,6 @@ steps:
     script: |      
       echo "##vso[task.setvariable variable=appVersion;]`cat ./build.gradle | grep ^version | awk '{gsub("\047", "", $3); print $3}'`"
 
-#- task: Bash@3
-#  inputs:
-#    targetType: 'inline'
-#    script: |
-#      echo $(appVersion)
-
 - task: MavenAuthenticate@0
   inputs:
     artifactsFeeds: 'ce-pg-stude-peed'
@@ -67,16 +61,6 @@ steps:
   inputs:
     targetType: 'inline'
     script: 'docker tag cepgbaseacr.azurecr.io/$(imageRepository):$(appVersion).$(buildVersion) cepgstapacr.azurecr.io/$(imageRepository):$(appVersion).$(buildVersion)'
-
-#- task: Docker@1
-#  inputs:
-#    containerregistrytype: 'Azure Container Registry'
-#    azureSubscriptionEndpoint: 'ce-pg-study-sc'
-#    azureContainerRegistry: 'cepgstapacr.azurecr.io'
-#    command: 'Tag image'
-#    imageNamesPath: 'cepgbaseacr.azurecr.io'
-#    imageName: '$(imageRepository):$(appVersion).$(buildVersion)'
-#    qualifyImageName: false
 
 - task: Docker@2
   inputs:
