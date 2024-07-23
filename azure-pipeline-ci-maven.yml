@@ -7,6 +7,8 @@ variables:
 
 pool:
   vmImage: ubuntu-latest
+  #tag: '$(Build.BuildId)'
+  tag: latest
 
 steps:
 - task: MavenAuthenticate@0
