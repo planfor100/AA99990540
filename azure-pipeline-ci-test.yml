@@ -43,11 +43,6 @@ steps:
     sonarQubeRunAnalysis: false
     spotBugsAnalysis: false
 
-- task: Docker@2
-  inputs:
-    command: 'build'
-    Dockerfile: '**/Dockerfile'
-
 #- task: CopyFiles@2
 #  displayName: 'Copy scripts'
 #  inputs:
@@ -62,7 +57,8 @@ steps:
   inputs:
     containerRegistry: 'cepgstapacr'
     repository: $(imageRepository)
-    command: 'push'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
     tags: |
       $(appVersion).$(buildVersion)
 
