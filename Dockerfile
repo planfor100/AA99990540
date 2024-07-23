@@ -1,4 +1,5 @@
-FROM bellsoft/liberica-openjdk-alpine:17
+# FROM bellsoft/liberica-openjdk-alpine:17
+FROM cepgbaseacr.azurecr.io/docker.io/openjdk:17-slim
 # or
 # FROM openjdk:8-jdk-alpine
 # FROM openjdk:11-jdk-alpine
