@@ -9,7 +9,8 @@ name: $(Date:yyyyMMdd).$(Rev:r)
 
 variables:
   imageRepository: 'cloudsample'
-  buildVersion: '1.0.0-$(Build.BuildNumber)'
+  buildVersion: '$(Build.BuildNumber)'
+  appVersion: '1.0.0'
   tag: '$(Build.BuildId)'
 
 pool:
@@ -22,10 +23,20 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      git config --global user.name "BuildService"
-      git config --global user.email "buildservice@pipeline.com"
-      git tag -a $(buildVersion) -m "Development Release"
-      git push --tags
+      echo "##vso[task.setvariable variable=appVersion;]1.0.1"
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      echo $(appVersion)
+#- task: Bash@3
+#  inputs:
+#    targetType: 'inline'
+#    script: |
+#      git config --global user.name "BuildService"
+#      git config --global user.email "buildservice@pipeline.com"
+#      git tag -a $(buildVersion) -m "Development Release"
+#      git push --tags
 - task: MavenAuthenticate@0
   inputs:
     artifactsFeeds: 'ce-pg-stude-peed'
