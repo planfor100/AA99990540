@@ -68,6 +68,7 @@ steps:
     azureSubscriptionEndpoint: 'ce-pg-study-sc'
     azureContainerRegistry: 'cepgstapacr.azurecr.io'
     command: 'Tag image'
+    imageNamesPath: 'cepgbaseacr.azurecr.io'
     imageName: '$(imageRepository):$(appVersion).$(buildVersion)'
     qualifyImageName: false
 
