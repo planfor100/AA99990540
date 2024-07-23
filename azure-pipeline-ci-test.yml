@@ -62,6 +62,12 @@ steps:
     Dockerfile: '**/Dockerfile'
     tags: |
       $(appVersion).$(buildVersion)
+- task: Docker@1
+  inputs:
+    containerregistrytype: 'Azure Container Registry'
+    command: 'Tag image'
+    imageName: '$(Build.Repository.Name):$(Build.BuildId)'
+
 - task: Docker@2
   inputs:
     containerRegistry: 'cepgstapacr'
