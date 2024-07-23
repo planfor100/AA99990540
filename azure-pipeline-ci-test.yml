@@ -62,6 +62,12 @@ steps:
     Dockerfile: '**/Dockerfile'
     tags: |
       $(appVersion).$(buildVersion)
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'docker tag cepgbaseacr.azurecr.io/$(imageRepository):$(appVersion).$(buildVersion) cepgstapacr.azurecr.io/$(imageRepository):$(appVersion).$(buildVersion)'
+
 #- task: Docker@1
 #  inputs:
 #    containerregistrytype: 'Azure Container Registry'
