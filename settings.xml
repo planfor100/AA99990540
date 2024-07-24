@@ -1,0 +1,7 @@
+<servers>
+    <server>
+      <id>ktds-playground</id>
+      <username><ktds-playground></username>
+      <password>[PERSONAL_ACCESS_TOKEN]</password>
+    </server>
+  </servers>
