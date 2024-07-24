@@ -5,7 +5,7 @@ variables:
   imageRepository: 'cloudsample'
   containerRegistry: 'cepgstapacr.azurecr.io'
   #tag: '$(Build.BuildId)'
-  tag: latest
+  tag: 0.0.1-SNAPSHOT.20240723.22
 
 pool:
   vmImage: ubuntu-latest
