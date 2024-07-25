@@ -7,7 +7,7 @@ metadata:
 spec:
   ingressClassName: ingress-internal
   rules:
-  - host: cloudsample.kubepia.net
+  - host: cloudsample.pg-aa.kubepia.net
     http:
       paths:
       - path: /
