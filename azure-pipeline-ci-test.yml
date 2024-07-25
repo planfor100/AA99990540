@@ -53,6 +53,7 @@ steps:
     containerRegistry: 'cepgbaseacr'
     repository: $(imageRepository)
     command: 'build'
+    arguments: --platform linux/amd64
     Dockerfile: '**/Dockerfile'
     tags: |
       $(appVersion).$(buildVersion)
