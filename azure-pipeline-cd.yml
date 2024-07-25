@@ -5,7 +5,7 @@ variables:
   imageRepository: 'cloudsample'
   containerRegistry: 'cepgstapacr.azurecr.io'
   #tag: '$(Build.BuildId)'
-  tag: 0.0.1-SNAPSHOT.20240723.22
+  tag: 0.0.1-SNAPSHOT.20240725.2
 
 pool:
   vmImage: ubuntu-latest
@@ -20,5 +20,6 @@ steps:
     manifests: |
       $(Pipeline.Workspace)/s/manifests/deployment.yml
       $(Pipeline.Workspace)/s/manifests/service.yml
+      $(Pipeline.Workspace)/s/manifests/ingress.yml
     containers: |
       $(containerRegistry)/$(imageRepository):$(tag)
