@@ -3,7 +3,6 @@ kind: Service
 metadata:
     name: cloudsample
 spec:
-    type: LoadBalancer
     ports:
     - port: 8080 
     selector:
