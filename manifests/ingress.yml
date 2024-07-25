@@ -16,4 +16,4 @@ spec:
             name: cloudsample
             port:
               number: 8080
-        pathType: Exact
+        pathType: Prefix
