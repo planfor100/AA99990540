@@ -7,10 +7,9 @@ metadata:
 spec:
   ingressClassName: ingress-internal
   rules:
-  - host: cloudsample.pg-aa.kubepia.net
-    http:
+  - http:
       paths:
-      - path: /
+      - path: /cloudsample
         backend:
           service:
             name: cloudsample
