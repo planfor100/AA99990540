@@ -8,7 +8,8 @@ trigger:
 
 variables:
   imageRepository: 'cloudsample'
-  tag: '$(Build.BuildId)'
+  #tag: '$(Build.BuildId)'
+  tag: latest
 
 pool:
   vmImage: ubuntu-latest
@@ -18,8 +19,6 @@ steps:
   inputs:
     artifactsFeeds: 'ce-pg-stude-peed'
 - task: Gradle@2
-  env:
-    SYSTEM_ACCESSTOKEN: $(System.AccessToken)
   inputs:
     gradleWrapperFile: 'gradlew'
     tasks: 'build'

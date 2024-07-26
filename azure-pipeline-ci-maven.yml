@@ -7,6 +7,8 @@ variables:
 
 pool:
   vmImage: ubuntu-latest
+  #tag: '$(Build.BuildId)'
+  tag: latest
 
 steps:
 - task: MavenAuthenticate@0
@@ -25,3 +27,11 @@ steps:
     jdkVersionOption: 1.17
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'cepgstapacr'
+    repository: $(imageRepository)
+    command: 'push'
+    tags: |
+      $(tag)

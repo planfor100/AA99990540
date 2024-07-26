@@ -1,16 +1,28 @@
 trigger:
 - none
 
+parameters:
+  - name: tag
+    type: string
+    default: 'latest'
+
 variables:
   imageRepository: 'cloudsample'
   containerRegistry: 'cepgstapacr.azurecr.io'
   #tag: '$(Build.BuildId)'
-  tag: latest
+  #tag: 0.0.1-SNAPSHOT.20240725.2
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      echo "version : ${{ parameters.tag }}"
+      
 - task: KubernetesManifest@1
   inputs:
     action: 'deploy'
@@ -20,5 +32,6 @@ steps:
     manifests: |
       $(Pipeline.Workspace)/s/manifests/deployment.yml
       $(Pipeline.Workspace)/s/manifests/service.yml
+      $(Pipeline.Workspace)/s/manifests/ingress.yml
     containers: |
-      $(containerRegistry)/$(imageRepository):$(tag)
+      $(containerRegistry)/$(imageRepository):${{ parameters.tag }}
