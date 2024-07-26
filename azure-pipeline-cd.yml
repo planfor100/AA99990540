@@ -34,4 +34,4 @@ steps:
       $(Pipeline.Workspace)/s/manifests/service.yml
       $(Pipeline.Workspace)/s/manifests/ingress.yml
     containers: |
-      $(containerRegistry)/$(imageRepository):
+      $(containerRegistry)/$(imageRepository):${{ parameters.tag }}
