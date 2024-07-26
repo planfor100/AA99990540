@@ -5,13 +5,14 @@
 
 trigger:
 - none
+
+# BuildNumber 설정
 name: $(Date:yyyyMMdd).$(Rev:r)
 
 variables:
   imageRepository: 'cloudsample'
   buildVersion: '$(Build.BuildNumber)'
   appVersion: '1.0.0'
-  #tag: '$(Build.BuildId)'
 
 pool:
   vmImage: ubuntu-latest
@@ -19,15 +20,20 @@ pool:
 steps:
 - checkout: self
   persistCredentials: true
+
+# application version setting 
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: |      
       echo "##vso[task.setvariable variable=appVersion;]`cat ./build.gradle | grep ^version | awk '{gsub("\047", "", $3); print $3}'`"
 
+# artifact 인증
 - task: MavenAuthenticate@0
   inputs:
     artifactsFeeds: 'ce-pg-stude-peed'
+
+# gradle build
 - task: Gradle@2
   inputs:
     gradleWrapperFile: 'gradlew'
@@ -37,6 +43,7 @@ steps:
     jdkVersionOption: '1.17'
     sonarQubeRunAnalysis: false
     spotBugsAnalysis: false
+
 
 #- task: CopyFiles@2
 #  displayName: 'Copy scripts'
@@ -48,21 +55,24 @@ steps:
 #  displayName: 'Publish jar'
 #  artifact: drop
 
+# docker build
 - task: Docker@2
   inputs:
     containerRegistry: 'cepgbaseacr'
     repository: $(imageRepository)
     command: 'build'
-    arguments: --platform linux/amd64
+    #arguments: --platform linux/amd64
     Dockerfile: '**/Dockerfile'
     tags: |
       $(appVersion).$(buildVersion)
 
+# image tag 
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: 'docker tag cepgbaseacr.azurecr.io/$(imageRepository):$(appVersion).$(buildVersion) cepgstapacr.azurecr.io/$(imageRepository):$(appVersion).$(buildVersion)'
 
+# push image to ACR
 - task: Docker@2
   inputs:
     containerRegistry: 'cepgstapacr'
@@ -71,6 +81,7 @@ steps:
     tags: |
       $(appVersion).$(buildVersion)
 
+# git tag 생성
 - task: Bash@3
   inputs:
     targetType: 'inline'
