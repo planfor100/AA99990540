@@ -1,0 +1,92 @@
+
+trigger:
+- none
+
+# BuildNumber 설정
+name: $(Date:yyyyMMdd).$(Rev:r)
+
+variables:
+  imageRepository: 'cloudsample'
+  buildVersion: '$(Build.BuildNumber)'
+  appVersion: '1.0.0'
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- checkout: self
+  persistCredentials: true
+
+# application version setting 
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |      
+      echo "##vso[task.setvariable variable=appVersion;]`cat ./build.gradle | grep ^version | awk '{gsub("\047", "", $3); print $3}'`"
+
+# artifact 인증
+- task: MavenAuthenticate@0
+  inputs:
+    artifactsFeeds: 'ce-pg-stude-peed'
+
+# maven build
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'spring-boot:build-image'
+    #goals: 'package'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    jdkVersionOption: 1.17
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+
+
+#- task: CopyFiles@2
+#  displayName: 'Copy scripts'
+#  inputs:
+#    contents: 'build/libs/**'
+#    targetFolder: '$(Build.ArtifactStagingDirectory)'
+
+#- publish: '$(Build.ArtifactStagingDirectory)/build/libs'
+#  displayName: 'Publish jar'
+#  artifact: drop
+
+# docker build
+- task: Docker@2
+  inputs:
+    containerRegistry: 'cepgbaseacr'
+    repository: $(imageRepository)
+    command: 'build'
+    #arguments: --platform linux/amd64
+    Dockerfile: '**/Dockerfile-maven'
+    tags: |
+      $(appVersion).$(buildVersion)
+
+# image tag 
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'docker tag cepgbaseacr.azurecr.io/$(imageRepository):$(appVersion).$(buildVersion) cepgstapacr.azurecr.io/$(imageRepository):$(appVersion).$(buildVersion)'
+
+# push image to ACR
+- task: Docker@2
+  inputs:
+    containerRegistry: 'cepgstapacr'
+    repository: $(imageRepository)
+    command: 'push'
+    tags: |
+      $(appVersion).$(buildVersion)
+
+# git tag 생성
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      git config --global user.name "BuildService"
+      git config --global user.email "buildservice@pipeline.com"
+      git tag -a $(appVersion).$(buildVersion) -m "Development Release"
+      git push --tags
