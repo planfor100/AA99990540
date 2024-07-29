@@ -22,7 +22,7 @@ spec:
             name: cloud-sample-volume
             readOnly: false
             subPath: cloud-sample
-          - mountPath: /application.yaml
+          - mountPath: /
             name: application-properties
             readOnly: true
                           
