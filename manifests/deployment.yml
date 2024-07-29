@@ -15,6 +15,8 @@ spec:
       containers:
         - name: cloudsample 
           image: cepgstapacr.azurecr.io/cloudsample
+          command: ["java","-jar","/app.jar"]
+          args: ["--spring.config.location=file:/config/application.yml"]
           ports:
           - containerPort: 8080
           volumeMounts:
