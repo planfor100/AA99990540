@@ -17,12 +17,12 @@ spec:
           image: cepgstapacr.azurecr.io/cloudsample
           ports:
           - containerPort: 8080
-        volumeMounts:
+          volumeMounts:
           - mountPath: /mnt/cloud-sample
             name: cloud-sample-volume
             readOnly: false
             subPath: cloud-sample
       volumes:
-        - name: cloud-sample-volume
-          persistentVolumeClaim:
-            claimName: cepg-aa-std-pvc
+      - name: cloud-sample-volume
+        persistentVolumeClaim:
+          claimName: cepg-aa-std-pvc
