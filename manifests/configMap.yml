@@ -6,7 +6,7 @@ metadata:
   labels:
     app: cloud-sample
 data:
-  application.yaml: |-
+  application.yml: |-
     spring:
       datasource:
         driver-class-name: org.postgresql.Driver
