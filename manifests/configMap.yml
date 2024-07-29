@@ -1,0 +1,40 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cloud-sample-configmap
+  namespace: default
+  labels:
+    app: cloud-sample
+data:
+  application.yaml: |-
+    spring:
+      datasource:
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://cepg-aa-std-db.private.postgres.database.azure.com:5432/postgres
+        username: cepgdb
+        password: ktds!1234
+      jpa:
+        show-sql: true
+        hibernate:
+          ddl-auto: update
+        defer-datasource-initialization: true
+        properties:
+          hibernate:
+            dialect: org.hibernate.dialect.PostgreSQLDialect
+            format_sql: true
+      sql:
+        init:
+          # mode: always
+          mode: embedded
+    server:
+      port: 8080
+
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: "*"
+
+    pvc:
+      path: /mnt/cloud-sample
+      

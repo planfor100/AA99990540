@@ -22,7 +22,18 @@ spec:
             name: cloud-sample-volume
             readOnly: false
             subPath: cloud-sample
+          - mountPath: /application.yaml
+            name: application-properties
+            readOnly: true
+                          
       volumes:
       - name: cloud-sample-volume
         persistentVolumeClaim:
           claimName: cepg-aa-std-pvc
+      - name: application-properties
+        configMap:
+          name: cloud-sample-configmap
+          items:
+            - key: application.yaml
+              path: application.yaml
+          defaultMode: 420
