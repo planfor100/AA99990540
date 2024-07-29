@@ -17,7 +17,7 @@ spec:
           image: cepgstapacr.azurecr.io/cloudsample
           ports:
           - containerPort: 8080
-        voiumeMounts:
+        volumeMounts:
           - mountPath: /mnt/cloud-sample
             name: cloud-sample-volume
             readOnly: false
