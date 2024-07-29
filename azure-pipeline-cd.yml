@@ -30,6 +30,7 @@ steps:
     kubernetesServiceConnection: 'cepg-aa-std-aks-clstr'
     namespace: 'default'
     manifests: |
+      $(Pipeline.Workspace)/s/manifests/configMap.yml
       $(Pipeline.Workspace)/s/manifests/deployment.yml
       $(Pipeline.Workspace)/s/manifests/service.yml
       $(Pipeline.Workspace)/s/manifests/ingress.yml
