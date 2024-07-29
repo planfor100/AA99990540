@@ -1,4 +1,5 @@
 getTodoItemList();
+getFileList();
 
 function getTodoItemList(page) {
     $.ajax({
@@ -357,3 +358,65 @@ $('#searchTodoItemContent').on("keypress", function (e) {
         });
     }
 });
+
+function getFileItemHtml(data) {
+    
+    
+
+    const name = data['name'];
+    const path = data['path'];
+    const size = data['size'];
+
+    let prevTodoItemsHtml = ``;
+    
+    return `<div class="alert alert-success d-flex flex-row align-items-center">
+                <div class="mr-8">
+                <a href="/api/files/download/${name}">${name}</a>
+                </div>
+            </div>`;
+}
+
+function getFileList() {
+    $.ajax({
+        url: "/api/files",
+        type: "GET",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+            let fileContent = $('#file-content');
+
+            let fileItemHtml = ``;
+            for (let i = 0; i < data.length; i++) {
+                fileItemHtml += getFileItemHtml(data[i]);
+            }
+            fileContent.html(fileItemHtml);
+
+        },
+        error: function (response) {
+            alert(response.responseText + "\n");
+        }
+    });
+}
+
+$('#addFile').on("click", function () {
+    uploadFile();
+});
+
+function uploadFile() {
+    var form = $('#uploadForm')[0];
+    const formData = new FormData(form);
+    
+    $.ajax({
+        url: "/api/files",
+        type: "POST",
+        data: formData,
+        contentType : false,
+        processData : false,   
+        success: function (data) {
+            getFileList();
+        },
+        error: function (response) {
+            alert(response.responseText + "\n");
+        }
+    });
+}
