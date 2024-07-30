@@ -33,7 +33,7 @@
 http://[hostname]:8080
 ~~~
 
-## 예제 코드
+## DB 접속 예제
 ~~~yaml
   datasource:
     # jdbc driver
