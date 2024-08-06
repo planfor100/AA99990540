@@ -27,7 +27,8 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: 'Build and push image'
+      
+    - name: 'Build image'
       uses: azure/docker-login@v1
       with:
         login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
@@ -36,4 +37,13 @@ jobs:
     
     - run: |
             docker build -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:latest -f Dockerfile-maven .
-            # docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:latest
+
+    #- name: 'Push image'
+    #  uses: azure/docker-login@v1
+    #  with:
+    #    login-server: ${{ secrets.STAP_ACR_LOGIN_SERVER }}
+    #    username: ${{ secrets.STAP_ACR_USERNAME }}
+    #    password: ${{ secrets.STAP_ACR_PASSWORD }}
+
+    #- run: |
+    #        docker build -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:latest -f Dockerfile-maven .
