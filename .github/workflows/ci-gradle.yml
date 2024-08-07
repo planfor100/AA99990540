@@ -64,7 +64,7 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
     
     - run: |
-            docker build -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:latest -f Dockerfile-maven .
+            docker build -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:latest -f Dockerfile .
             docker tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:latest ${{ secrets.STAP_ACR_LOGIN_SERVER }}/sampleapp:latest
 
     - name: 'Push image'
