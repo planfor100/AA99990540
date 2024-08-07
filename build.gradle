@@ -15,15 +15,6 @@ java {
 	}
 }
 
-/* local test */
-/*
-tasks.bootBuildImage {
-    docker {
-        host = "//./pipe/dockerDesktopLinuxEngine"
-    }
-}
-*/
-
 publishing { 
     repositories { 
 		maven {
