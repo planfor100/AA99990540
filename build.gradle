@@ -17,13 +17,14 @@ java {
 
 publishing { 
     repositories { 
-		maven {
-			url 'https://pkgs.dev.azure.com/ktds-playground/ce-pg-study/_packaging/ce-pg-stude-peed/maven/v1'
-			name 'ce-pg-stude-peed'
-			authentication {
-				basic(BasicAuthentication)
-			}
-		}
+	maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/OWNER/REPOSITORY")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("MAVEN_USERNAME")
+                password = project.findProperty("gpr.token") ?: System.getenv("MAVEN_PASSWORD")
+            }
+        }
     }   
 } 
 
@@ -31,12 +32,13 @@ repositories {
 	/* mavenCentral() */
     
 	maven {
-		url 'https://pkgs.dev.azure.com/ktds-playground/ce-pg-study/_packaging/ce-pg-stude-peed/maven/v1'
-		name 'ce-pg-stude-peed'
-		authentication {
-			basic(BasicAuthentication)
-		}
-	}
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/OWNER/REPOSITORY")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("MAVEN_USERNAME")
+                password = project.findProperty("gpr.token") ?: System.getenv("MAVEN_PASSWORD")
+            }
+        }
 	
 }
 
