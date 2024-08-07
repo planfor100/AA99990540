@@ -15,50 +15,44 @@ java {
 	}
 }
 
-/* local test */
-/*
-tasks.bootBuildImage {
-    docker {
-        host = "//./pipe/dockerDesktopLinuxEngine"
-    }
-}
-*/
-
 publishing { 
     repositories { 
-		maven {
-			url 'https://pkgs.dev.azure.com/ktds-playground/ce-pg-study/_packaging/ce-pg-stude-peed/maven/v1'
-			name 'ce-pg-stude-peed'
-			authentication {
-				basic(BasicAuthentication)
-			}
-		}
+	maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/dragon262/cloud-sample")
+            credentials {
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
+            }
+        }
     }   
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
 } 
 
 repositories {
-	/* mavenCentral() */
+	mavenCentral()
     
 	maven {
-		url 'https://pkgs.dev.azure.com/ktds-playground/ce-pg-study/_packaging/ce-pg-stude-peed/maven/v1'
-		name 'ce-pg-stude-peed'
-		authentication {
-			basic(BasicAuthentication)
-		}
-	}
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/dragon262/cloud-sample")
+            credentials {
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
+            }
+        }
 	
-}
-
-bootBuildImage {
-    imageName = "cepgstapacr.azurecr.io/cloudsample"
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.postgresql:postgresql:42.3.3'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
