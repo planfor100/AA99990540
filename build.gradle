@@ -21,8 +21,8 @@ publishing {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/dragon262/cloud-sample")
             credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("MAVEN_USERNAME")
-                password = project.findProperty("gpr.token") ?: System.getenv("MAVEN_PASSWORD")
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
             }
         }
     }   
@@ -40,8 +40,8 @@ repositories {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/dragon262/cloud-sample")
             credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("MAVEN_USERNAME")
-                password = project.findProperty("gpr.token") ?: System.getenv("MAVEN_PASSWORD")
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
             }
         }
 	
@@ -55,8 +55,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.postgresql:postgresql:42.3.3'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
