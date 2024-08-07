@@ -44,7 +44,7 @@ jobs:
       with:
         login-server: ${{ secrets.STAP_ACR_LOGIN_SERVER }}
         username: ${{ secrets.STAP_ACR_USERNAME }}
-        password: ${{ secrets.STAP_ACR_PASSWORD }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
 
     - run: |
             docker push ${{ secrets.STAP_ACR_LOGIN_SERVER }}/sampleapp:latest
