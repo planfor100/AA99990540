@@ -40,7 +40,7 @@ jobs:
       run: rm ~/.m2/settings.xml
 
     - name: Build with Gradle Wrapper
-      run: gradle build
+      run: gradle publish
       env:
           MAVEN_USERNAME: ${{ secrets.REPO_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.REPO_TOKEN }}
