@@ -31,26 +31,15 @@
 	</properties>
 	<repositories>
 		<repository>
-		<id>ce-pg-stude-peed</id>
-		<url>https://pkgs.dev.azure.com/ktds-playground/ce-pg-study/_packaging/ce-pg-stude-peed/maven/v1</url>
-		<releases>
-			<enabled>true</enabled>
-		</releases>
-		<snapshots>
-			<enabled>true</enabled>
-		</snapshots>
+		<id>github</id>
+		<url>https://maven.pkg.github.com/dragon262/cloud-sample</url>
 		</repository>
 	</repositories>
 	<distributionManagement>
 		<repository>
-		<id>ce-pg-stude-peed</id>
-		<url>https://pkgs.dev.azure.com/ktds-playground/ce-pg-study/_packaging/ce-pg-stude-peed/maven/v1</url>
-		<releases>
-			<enabled>true</enabled>
-		</releases>
-		<snapshots>
-			<enabled>true</enabled>
-		</snapshots>
+		<id>github</id>
+		<name>GitHub dragon262 Apache Maven Packages</name>
+		<url>https://maven.pkg.github.com/dragon262/cloud-sample</url>
 		</repository>
 	</distributionManagement>
 
