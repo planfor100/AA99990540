@@ -34,7 +34,7 @@ publishing {
 } 
 
 repositories {
-	/* mavenCentral() */
+	mavenCentral()
     
 	maven {
             name = "GitHubPackages"
