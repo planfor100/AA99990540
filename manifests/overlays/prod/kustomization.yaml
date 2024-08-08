@@ -1,10 +1,16 @@
 configMapGenerator:
-  - name: cloud-sample-configmap
-    files:
-    - application.yml
+- files:
+  - application.yml
+  name: cloud-sample-configmap
 resources:
-  - ../../base
+- ../../base
 patchesStrategicMerge:
-  - deployment.yaml
-  - ingress.yaml
+- deployment.yml
+- ingress.yml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
 namePrefix: prod-
+images:
+- name: cepgstapacr.azurecr.io/cloud-sample
+  newTag: "202408080544"
+
