@@ -1,0 +1,10 @@
+configMapGenerator:
+  - name: cloud-sample-configmap
+    files:
+    - application.yml
+resources:
+  - ../../base
+patchesStrategicMerge:
+  - deployment.yml
+  - ingress.yml
+namePrefix: prod-
