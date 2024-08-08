@@ -52,8 +52,9 @@ jobs:
 
     - name: Update Kubernetes resources
       run: |
+          echo "`ls`"
           cd manifests/overlays/prod
-          kustomize edit set image ${{ secrets.STAP_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ steps.image.outputs.version }}
+          kustomize edit set image ${{ secrets.STAP_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ steps.gen-version.outputs.VERSION }}
           cat kustomization.yaml
 
     - name: Commit files
