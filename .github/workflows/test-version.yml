@@ -1,0 +1,14 @@
+name: Java CI with Maven
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: test
+        run: |
+          echo `test: ${{ github.sha }}`
