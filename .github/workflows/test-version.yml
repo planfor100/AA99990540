@@ -1,0 +1,22 @@
+name: Test Version
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: test
+        id: gen-version
+        run: |
+          echo 'sha: ${{ github.sha }}';
+          echo date: `date +%Y%m%d%H%M`;
+          echo "::set-output name=VERSION::`date +%Y%m%d%H%M`"
+
+      - name: test 2
+        run: |
+          echo 'sha: ${{ github.sha }}';
+          echo date: `date +%Y%m%d%H%M`;
+          echo "version: ${{ steps.gen-version.outputs.VERSION }}"
