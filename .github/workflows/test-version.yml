@@ -28,6 +28,11 @@ jobs:
       - name: Update Kubernetes resources
         run: |
           echo "`ls`"
-          cd manifests/overlays/prod
+          cd manifests
+          echo "`ls`"
+          cd overlays
+          echo "`ls`"
+          cd prod
+          echo "`ls`"
           kustomize edit set image cepgstapacr.azurecr.io/cloud-sample:${{ steps.gen-version.outputs.VERSION }}
           cat kustomization.yaml
