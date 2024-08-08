@@ -1,18 +1,12 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: Java CI with Maven
 
 on: workflow_dispatch
 
+env:
+  IMAGE_NAME: cloud-sample
+
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -25,17 +19,26 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-      
-    - name: 'Build image'
+
+    - name: Setup Kustomize
+      uses: imranismail/setup-kustomize@v1
+
+    - name: 'Gen Version'
+      id: gen-version
+      run: |
+        echo "::set-output name=VERSION::`date +%Y%m%d%H%M`"
+        
+    - name: 'ACR login'
       uses: azure/docker-login@v1
       with:
         login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-    
-    - run: |
-            docker build -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:latest -f Dockerfile-maven .
-            docker tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/sampleapp:latest ${{ secrets.STAP_ACR_LOGIN_SERVER }}/sampleapp:latest
+
+    - name: 'Build & Tag Image'
+      run: |
+            docker build -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ steps.gen-version.outputs.VERSION }} -f Dockerfile-maven .
+            docker tag ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ steps.gen-version.outputs.VERSION }} ${{ secrets.STAP_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ steps.gen-version.outputs.VERSION }}
 
     - name: 'Push image'
       uses: azure/docker-login@v1
@@ -43,6 +46,20 @@ jobs:
         login-server: ${{ secrets.STAP_ACR_LOGIN_SERVER }}
         username: ${{ secrets.STAP_ACR_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-
+    
     - run: |
-            docker push ${{ secrets.STAP_ACR_LOGIN_SERVER }}/sampleapp:latest
+          docker push ${{ secrets.STAP_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ steps.gen-version.outputs.VERSION }}
+
+    - name: Update Kubernetes resources
+      run: |
+          cd manifests/overlays/prod
+          kustomize edit set image ${{ secrets.STAP_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ steps.image.outputs.version }}
+          cat kustomization.yaml
+
+    - name: Commit files
+      run: |
+          cd manifests
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "github-actions"
+          git commit -am "Update image tag"
+          git push -u origin main

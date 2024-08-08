@@ -1,0 +1,38 @@
+name: Test Version
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: test
+        id: gen-version
+        run: |
+          echo 'sha: ${{ github.sha }}';
+          echo date: `date +%Y%m%d%H%M`;
+          echo "::set-output name=VERSION::`date +%Y%m%d%H%M`"
+
+      - name: test 2
+        run: |
+          echo 'sha: ${{ github.sha }}';
+          echo date: `date +%Y%m%d%H%M`;
+          echo "version: ${{ steps.gen-version.outputs.VERSION }}"
+
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v1
+
+      - name: Update Kubernetes resources
+        run: |
+          echo "`ls`"
+          cd manifests
+          echo "`ls`"
+          cd overlays
+          echo "`ls`"
+          cd prod
+          echo "`ls`"
+          kustomize edit set image cepgstapacr.azurecr.io/cloud-sample:${{ steps.gen-version.outputs.VERSION }}
+          cat kustomization.yaml
