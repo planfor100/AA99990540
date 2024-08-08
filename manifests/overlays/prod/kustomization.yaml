@@ -5,6 +5,6 @@ configMapGenerator:
 resources:
   - ../../base
 patchesStrategicMerge:
-  - deployment.yml
-  - ingress.yml
+  - deployment.yaml
+  - ingress.yaml
 namePrefix: prod-

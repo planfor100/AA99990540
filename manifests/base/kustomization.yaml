@@ -1,6 +1,4 @@
 resources:
-- deployment.yml
-- service.yml
-- ingress.yml
-#apiVersion: kustomize.config.k8s.io/v1beta1
-#kind: Kustomization
+- deployment.yaml
+- service.yaml
+- ingress.yaml
