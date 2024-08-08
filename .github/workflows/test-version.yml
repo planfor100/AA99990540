@@ -11,4 +11,4 @@ jobs:
       - name: test
         run: |
           echo 'sha: ${{ github.sha }}';
-          echo 'date +%Y%m%d%H%M';
+          echo 'date: `date +%Y%m%d%H%M`';
