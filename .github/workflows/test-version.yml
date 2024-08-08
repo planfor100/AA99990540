@@ -8,6 +8,7 @@ jobs:
       contents: read
 
     steps:
+      - uses: actions/checkout@v4
       - name: test
         id: gen-version
         run: |
@@ -20,3 +21,13 @@ jobs:
           echo 'sha: ${{ github.sha }}';
           echo date: `date +%Y%m%d%H%M`;
           echo "version: ${{ steps.gen-version.outputs.VERSION }}"
+
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v1
+
+      - name: Update Kubernetes resources
+        run: |
+          echo "`ls`"
+          cd manifests/overlays/prod
+          kustomize edit set image cepgstapacr.azurecr.io/cloud-sample:${{ steps.gen-version.outputs.VERSION }}
+          cat kustomization.yaml
